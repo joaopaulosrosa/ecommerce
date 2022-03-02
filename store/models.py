@@ -15,6 +15,7 @@ class Product(models.Model):
     product_code = models.CharField(max_length=5, unique=True)
     name = models.CharField(max_length=30, null=False)
     price = models.FloatField()
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name
