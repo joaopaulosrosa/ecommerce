@@ -5,10 +5,19 @@ from .models import *
 
 def store(request):
     products = Product.objects.all()
+
     context = {
         'products': products
     }
     return render(request, 'store/store.html', context)
+
+def product(request, pk):
+    product = Product.objects.get(id=pk)
+
+    context = {
+        'product': product
+    }
+    return render(request, 'store/product.html', context)
 
 def cart(request):
     context = {}

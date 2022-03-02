@@ -16,7 +16,7 @@
           </a>
 
           <div class="card-body">
-            <a href="">
+            <a href="{% url 'product' product.id %}">
               <p class="card-text" style="text-align:right">{{product.name}}</p>
             </a>
             <p class="card-text" style="text-align:right">R$ {{product.price|floatformat:2}}</p>
