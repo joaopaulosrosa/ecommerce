@@ -20,11 +20,15 @@
     a{
       text-decoration: none;
     }
+
+    .gutter {
+      --bs-gutter-x: 1rem
+    }
   </style>
 
   {% include 'store/navbar.html' %}
 
-  <div class="container">
+  <div class="container" style="padding-top: 65px;">
 
     {% block content %}
 

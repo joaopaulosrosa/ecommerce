@@ -2,17 +2,17 @@
 {% load static %}
 {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid pt-3" style="max-width:1000px">
 
-  <div class="row mt-5 justify-content-around">
+  <div class="row gutter justify-content-around">
 
     {% for product in products %}
 
-      <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-4">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
 
-        <div class="card-product p-3 p-md-4 d-flex flex-column align-items-strech h-100 position-relative final" style="min-width: 18rem; max-width: 30rem; margin: 0 auto">
+        <div class="card-product d-flex flex-column align-items-strech h-100 position-relative final" style="min-width: 18rem; max-width: 30rem; margin: 0">
           <a href="">
-            <img class="card-img-top" src="{{ product.imageURL }}" alt="Card image cap">
+            <img class="card-img-top" src="{{ product.imageURL }}" alt="Card image cap" style="max-height: 706px;">
           </a>
 
           <div class="card-body">
