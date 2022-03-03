@@ -2,21 +2,27 @@
 {% load static %}
 {% block content %}
 
-<div class="container mt-1" style="max-width: 1000px;">
+<div class="container mt-4" style="max-width: 1000px;">
 
   <div class="row">
 
-    <div class="col-6">
+    <div class="col-7 pe-4">
 
-      <img src="{{product.image.url}}" alt="">
+      <img class="w-100" style="max-height: 800px;" src="{{product.image.url}}" alt="">
 
     </div>
 
-    <div class="col-6">
+    <div class="col-5 mt-5">
 
-      <h6>{{product.name}}</h6>
+      <h6 class="mt-5" >{{product.name}}</h6>
 
-      <p class="fs-5">R$ {{product.price|floatformat:2}}</p>
+      <p class="fs-5 mt-4">R$ {{product.price|floatformat:2}}</p>
+
+      <p class="mt-5" >{{product.description}}</p>
+
+      <button class="mt-4 btn btn-dark  text-center" type="submit" name="buy">
+        <small>COMPRAR</small>
+      </button>
 
     </div>
 
