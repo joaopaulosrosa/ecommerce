@@ -31,7 +31,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    custumer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     complete = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=10, null=True)
