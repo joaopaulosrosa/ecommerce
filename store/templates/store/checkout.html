@@ -2,69 +2,79 @@
 
 {% block content %}
 
-<div class="container mt-4" style="max-width: 1100px;">
+<div class="container mt-5" style="max-width: 1100px;">
 
   <div class="row">
 
     <div class="col-7 me-4 p-5 shadow">
 
+      <p class="fw-bold mb-4">CHECKOUT</p>
+
       <div class="d-flex justify-content-between border-bottom pb-4">
 
-        <input type="text" placeholder="Name" name="name" class="form-control me-2">
+        <input type="text" placeholder="Nome" name="name" class="form-control me-2">
 
         <input type="email" placeholder="Email" name="email" class="form-control ms-2">
 
       </div>
 
-      <p class="fw-bold my-3">SHIPPING INFORMATION</p>
+      <p class="fw-bold my-4">INFORMAÇÃO DE ENVIO</p>
 
       <div class="d-flex justify-content-between pb-4">
 
-        <input type="text" placeholder="Address" name="address" class="form-control me-2">
+        <input type="text" placeholder="Endereço" name="address" class="form-control me-2">
 
-        <input type="email" placeholder="City" name="city" class="form-control ms-2">
+        <input type="email" placeholder="Cidade" name="city" class="form-control ms-2">
 
       </div>
 
       <div class="d-flex justify-content-between pb-4">
 
-        <input type="text" placeholder="State" name="state" class="form-control me-2">
+        <input type="text" placeholder="Estato" name="state" class="form-control me-2">
 
-        <input type="email" placeholder="Zipcode" name="zipcode" class="form-control ms-2">
+        <input type="email" placeholder="CEP" name="zipcode" class="form-control ms-2">
 
       </div>
 
+      <div class="d-flex justify-content-between py-4">
 
-      <input type="submit" class="btn btn-dark" value="Continue">
+        <a class="text-reset mb-4 w-100" href="{% url 'cart' %}">< Back to Cart</a>
 
+        <input type="submit" class="btn btn-dark w-100" value="Continue">
+
+      </div>
 
     </div>
 
-    <div class="col-4 p-3">
+    <div class="col-4 p-3 shadow">
 
       <small class="fw-bold ms-3">Order</small>
 
-      {% for item in items %}
+      <div style="overflow: auto; max-height: 350px;">
+
+        {% for item in items %}
 
 
-        <div class="d-flex w-100 my-2 p-3 justify-content-between border-top">
+          <div class="d-flex w-100 my-2 p-3 justify-content-between border-top">
 
-          <div class="d-flex">
+            <div class="d-flex">
 
-            <img src="{{ item.product.imageURL }}" alt="" style="height: 60px;">
+              <img src="{{ item.product.imageURL }}" alt="" style="height: 60px;">
 
-            <div class="ms-4 align-items-center my-auto">
+              <div class="ms-4 align-items-center my-auto">
 
-              <small class="d-block fw-bold mb-1">{{item.product.name}}</small>
-              <small>{{item.quantity}} x R$ {{item.product.price|floatformat:2}}</small>
+                <small class="d-block fw-bold mb-1">{{item.product.name}}</small>
+                <small>{{item.quantity}} x R$ {{item.product.price|floatformat:2}}</small>
+
+              </div>
 
             </div>
 
           </div>
 
-        </div>
+        {% endfor %}
 
-      {% endfor %}
+      </div>
 
       <div class="px-3 pt-3 d-flex justify-content-between border-top">
 

@@ -2,101 +2,111 @@
 
 {% block content %}
 
-<div class="container mt-4" style="max-width: 1000px;">
+<div class="container mt-4" style="min-width: 420px; max-width: 700px;">
 
 
 
-    <div class="mx-auto px-4 py-4"  style="min-width: 420px; max-width: 620px;">
+  <div class="mx-auto px-4 py-4 shadow">
 
-      <small class="fw-bold">CARRINHO DE COMPRAS</small>
+    <small class="fw-bold">CARRINHO DE COMPRAS</small>
 
-      <hr>
+    <hr>
 
-      {% for item in items %}
+    <div class="px-4" style="max-height: 350px; overflow: auto;">
 
+    {% for item in items %}
 
-        <a class="fw-bold" style="float: right; color:red" href="">x</a>
-        <div class="d-flex w-100 my-5 justify-content-between">
+      <div class="d-flex w-100 my-3 justify-content-between">
 
-          <div class="d-flex">
+        <div class="d-flex">
 
-            <img src="{{ item.product.imageURL }}" alt="" style="height: 60px;">
+          <img src="{{ item.product.imageURL }}" alt="" style="height: 60px;">
 
-            <div class="ms-4 align-items-center my-auto">
+          <div class="ms-4 align-items-center my-auto">
 
-              <small class="d-block fw-bold mb-1">{{item.product.name}}</small>
+            <small class="d-block fw-bold mb-1">{{item.product.name}}</small>
 
-              <span class="badge bg-success">Envio Imediato</span>
-
-            </div>
-
-          </div>
-
-          <div class="text-center">
-
-            <small class="d-block my-2 fw-bold">Price</small>
-
-            <small>R$ {{item.product.price|floatformat:2}}</small>
-
-          </div>
-
-          <div class="text-center">
-
-            <small class="d-block my-2 fw-bold">Qnt.</small>
-
-            <small>{{item.quantity}}</small>
-
-          </div>
-
-          <div class="text-center">
-
-            <small class="d-block my-2 fw-bold">Total</small>
-
-            <small>${{item.get_total}}</small>
+            <span class="badge bg-success">Envio Imediato</span>
 
           </div>
 
         </div>
 
-        <hr class="mx-auto" style="width: 90%;">
+        <div class="text-center">
 
-      {% endfor %}
+          <small class="d-block my-2 fw-bold">Preço</small>
 
-      <div class="d-flex w-100">
+          <small>R$ {{item.product.price|floatformat:2}}</small>
 
-        <a class="w-100 text-reset" href="{% url 'store' %}">
+        </div>
 
-          <small>< Back to Store</small>
+        <div class="text-center">
 
-        </a>
+          <small class="d-block my-2 fw-bold">Qnt.</small>
 
-        <div class="w-100">
+          <div class="d-flex my-auto">
 
-          <div class="d-flex w-100 justify-content-between">
+            <button data-product={{item.product.id}} data-action="add" class="btn btn-sm btn-outline-dark my-2 update-cart">+</button>
 
-            <small class="fw-bold my-auto">items</small>
+            <p class="pt-2 mx-2 fw-bold">{{item.quantity}}</p>
 
-            <small class="fs-5">{{order.get_cart_items}}</small>
-
-          </div>
-          <hr>
-          <div class="d-flex justify-content-between">
-
-            <small class="fw-bold my-auto">total</small>
-
-            <small class="fs-5">R$ {{order.get_cart_total|floatformat:2}}</small>
+            <button class="btn btn-sm btn-outline-dark my-2">-</button>
 
           </div>
 
-          <a href="{% url 'checkout' %}">
-            <button class="btn btn-dark w-100 mt-5">checkout</button>
-          </a>
+        </div>
+
+        <div class="text-center">
+
+          <small class="d-block my-2 fw-bold">Total</small>
+
+          <small>${{item.get_total}}</small>
 
         </div>
 
       </div>
 
+      <hr class="mx-auto" style="width: 90%;">
+
+    {% endfor %}
+
     </div>
+
+    <div class="d-flex w-100 border-top mt-4 pt-4">
+
+      <a class="w-100 text-reset" href="{% url 'store' %}">
+
+        <small>< Back to Store</small>
+
+      </a>
+
+      <div class="w-100">
+
+        <div class="d-flex w-100 justify-content-between">
+
+          <small class="fw-bold my-auto">items</small>
+
+          <small class="fs-5">{{order.get_cart_items}}</small>
+
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+
+          <small class="fw-bold my-auto">total</small>
+
+          <small class="fs-5">R$ {{order.get_cart_total|floatformat:2}}</small>
+
+        </div>
+
+        <a href="{% url 'checkout' %}">
+          <button class="btn btn-dark w-100 mt-5">checkout</button>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
 
 
 

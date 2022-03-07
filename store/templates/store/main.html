@@ -13,6 +13,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
   <title>Ecommerce</title>
 
+  <script type="text/javascript">
+    var user = '{{request.user}}'
+  </script>
+
 </head>
 <body>
 
@@ -20,9 +24,21 @@
     a{
       text-decoration: none;
     }
-
     .gutter {
       --bs-gutter-x: 1rem
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+      background-color: rgb(240, 240, 240);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgb(228, 228, 228);
+      border-radius: 5px;
+    }
+    .btn:focus {
+      outline: none;
+      box-shadow: none;
     }
   </style>
 
@@ -46,6 +62,8 @@
     integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
   <script src="https://kit.fontawesome.com/3b6a752db4.js" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="{% static 'js/cart.js' %}" ></script>
 
 
 </body>
