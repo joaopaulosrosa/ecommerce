@@ -4,9 +4,9 @@
 
 <div class="container mt-4" style="max-width: 1000px;">
 
-  <div class="row">
 
-    <div class="col-7 px-4 py-4 me-3">
+
+    <div class="mx-auto px-4 py-4"  style="min-width: 420px; max-width: 620px;">
 
       <small class="fw-bold">CARRINHO DE COMPRAS</small>
 
@@ -58,7 +58,7 @@
 
         </div>
 
-        <hr>
+        <hr class="mx-auto" style="width: 90%;">
 
       {% endfor %}
 
@@ -84,9 +84,13 @@
 
             <small class="fw-bold my-auto">total</small>
 
-            <small class="fs-5">R$ {{order.get_cart_total}}</small>
+            <small class="fs-5">R$ {{order.get_cart_total|floatformat:2}}</small>
 
           </div>
+
+          <a href="{% url 'checkout' %}">
+            <button class="btn btn-dark w-100 mt-5">checkout</button>
+          </a>
 
         </div>
 
@@ -94,13 +98,7 @@
 
     </div>
 
-    <div class="col-4 shadow rounded">
 
-
-
-    </div>
-
-  </div>
 
 </div>
 

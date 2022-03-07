@@ -1,5 +1,91 @@
 {% extends 'store/main.html' %}
 
 {% block content %}
-<h2>checkout</h2>
+
+<div class="container mt-4" style="max-width: 1100px;">
+
+  <div class="row">
+
+    <div class="col-7 me-4 p-5 shadow">
+
+      <div class="d-flex justify-content-between border-bottom pb-4">
+
+        <input type="text" placeholder="Name" name="name" class="form-control me-2">
+
+        <input type="email" placeholder="Email" name="email" class="form-control ms-2">
+
+      </div>
+
+      <p class="fw-bold my-3">SHIPPING INFORMATION</p>
+
+      <div class="d-flex justify-content-between pb-4">
+
+        <input type="text" placeholder="Address" name="address" class="form-control me-2">
+
+        <input type="email" placeholder="City" name="city" class="form-control ms-2">
+
+      </div>
+
+      <div class="d-flex justify-content-between pb-4">
+
+        <input type="text" placeholder="State" name="state" class="form-control me-2">
+
+        <input type="email" placeholder="Zipcode" name="zipcode" class="form-control ms-2">
+
+      </div>
+
+
+      <input type="submit" class="btn btn-dark" value="Continue">
+
+
+    </div>
+
+    <div class="col-4 p-3">
+
+      <small class="fw-bold ms-3">Order</small>
+
+      {% for item in items %}
+
+
+        <div class="d-flex w-100 my-2 p-3 justify-content-between border-top">
+
+          <div class="d-flex">
+
+            <img src="{{ item.product.imageURL }}" alt="" style="height: 60px;">
+
+            <div class="ms-4 align-items-center my-auto">
+
+              <small class="d-block fw-bold mb-1">{{item.product.name}}</small>
+              <small>{{item.quantity}} x R$ {{item.product.price|floatformat:2}}</small>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      {% endfor %}
+
+      <div class="px-3 pt-3 d-flex justify-content-between border-top">
+
+        <small>total (intems)</small>
+
+        <small>{{order.get_cart_items}}</small>
+
+      </div>
+
+      <div class="px-3 pt-1 d-flex justify-content-between">
+
+        <small class="fw-bold">total (R$)</small>
+
+        <small class="fw-bold">R$ {{order.get_cart_total|floatformat:2}}</small>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
 {% endblock content %}

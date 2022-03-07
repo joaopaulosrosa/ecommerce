@@ -24,7 +24,6 @@ def cart(request):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
-        print(order)
     else:
         items = []
 
@@ -35,5 +34,16 @@ def cart(request):
     return render(request, 'store/cart.html', context)
 
 def checkout(request):
-    context = {}
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        print(order)
+    else:
+        items = []
+
+    context = {
+        'items': items,
+        'order': order
+    }
     return render(request, 'store/checkout.html', context)
