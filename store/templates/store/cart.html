@@ -1,5 +1,5 @@
 {% extends 'store/main.html' %}
-
+{% load static %}
 {% block content %}
 
 <div class="container mt-4" style="min-width: 420px; max-width: 700px;">
@@ -46,11 +46,13 @@
 
           <div class="d-flex my-auto">
 
-            <button data-product={{item.product.id}} data-action="add" class="btn btn-sm btn-outline-dark my-2 update-cart">+</button>
+            <img data-product="{{item.product.id}}" data-action="add" style="height: 20px; cursor:pointer;" class="my-auto chg-quantity update-cart"
+              src="{% static  'images/plus.png' %}">
 
             <p class="pt-2 mx-2 fw-bold">{{item.quantity}}</p>
 
-            <button class="btn btn-sm btn-outline-dark my-2">-</button>
+            <img data-product="{{item.product.id}}" data-action="remove" style="height: 20px; cursor:pointer;"
+              class="my-auto chg-quantity update-cart" src="{% static  'images/minus.png' %}">
 
           </div>
 
