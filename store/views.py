@@ -29,16 +29,17 @@ def product(request, pk):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
+        item = OrderItem.objects.get_or_create(order=order, product=product)[0]
         cartItems = order.get_cart_items
     else:
-        items = []
+        item = []
         order = {'get_cart_total':0, 'get_cart_items':0}
         cartItems = order['get_cart_items']
 
     context = {
         'product': product,
         'order': order,
+        'item': item,
         'cartItems': cartItems
     }
     return render(request, 'store/product.html', context)
