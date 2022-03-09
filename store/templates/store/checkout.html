@@ -10,37 +10,45 @@
 
       <p class="fw-bold mb-4">CHECKOUT</p>
 
-      <div class="d-flex justify-content-between border-bottom pb-4">
+      <form class="w-100" id="form">
 
-        <input type="text" placeholder="Nome" name="name" class="form-control me-2">
+        <div class="d-flex justify-content-between border-bottom pb-4">
 
-        <input type="email" placeholder="Email" name="email" class="form-control ms-2">
+          <input type="text" placeholder="Nome" name="name" class="form-control me-2">
+          <input type="email" placeholder="Email" name="email" class="form-control ms-2">
 
-      </div>
+        </div>
 
-      <p class="fw-bold my-4">INFORMAÇÃO DE ENVIO</p>
+        <p class="fw-bold my-4">INFORMAÇÃO DE ENVIO</p>
 
-      <div class="d-flex justify-content-between pb-4">
+        <div class="d-flex justify-content-between pb-4">
 
-        <input type="text" placeholder="Endereço" name="address" class="form-control me-2">
+          <input type="text" placeholder="Endereço" name="address" class="form-control me-2">
+          <input type="email" placeholder="Cidade" name="city" class="form-control ms-2">
 
-        <input type="email" placeholder="Cidade" name="city" class="form-control ms-2">
+        </div>
 
-      </div>
+        <div class="d-flex justify-content-between pb-4">
 
-      <div class="d-flex justify-content-between pb-4">
+          <input type="text" placeholder="Estado" name="state" class="form-control me-2">
+          <input type="email" placeholder="CEP" name="zipcode" class="form-control ms-2">
 
-        <input type="text" placeholder="Estato" name="state" class="form-control me-2">
+        </div>
 
-        <input type="email" placeholder="CEP" name="zipcode" class="form-control ms-2">
+        <div class="d-flex justify-content-between py-4">
 
-      </div>
+          <a class="text-reset mb-4 w-100" href="{% url 'cart' %}">< Back to Cart</a>
 
-      <div class="d-flex justify-content-between py-4">
+          <input type="submit" class="btn btn-dark w-100" id="form-btn" value="Continue">
 
-        <a class="text-reset mb-4 w-100" href="{% url 'cart' %}">< Back to Cart</a>
 
-        <input type="submit" class="btn btn-dark w-100" value="Continue">
+        </div>
+      </form>
+
+      <div id="card-info" class="hidden">
+
+        <p class="fw-bold">PAYMENT INFO</p>
+        <input type="text" placeholder="Credit Card Number" name="state" class="form-control me-2">
 
       </div>
 
@@ -49,7 +57,6 @@
     <div class="col-4 p-3 shadow">
 
       <small class="fw-bold ms-3">Order</small>
-
       <div style="overflow: auto; max-height: 350px;">
 
         {% for item in items %}
@@ -60,7 +67,6 @@
             <div class="d-flex">
 
               <img src="{{ item.product.imageURL }}" alt="" style="height: 60px;">
-
               <div class="ms-4 align-items-center my-auto">
 
                 <small class="d-block fw-bold mb-1">{{item.product.name}}</small>
@@ -79,7 +85,6 @@
       <div class="px-3 pt-3 d-flex justify-content-between border-top">
 
         <small>total (intems)</small>
-
         <small>{{order.get_cart_items}}</small>
 
       </div>
@@ -87,7 +92,6 @@
       <div class="px-3 pt-1 d-flex justify-content-between">
 
         <small class="fw-bold">total (R$)</small>
-
         <small class="fw-bold">R$ {{order.get_cart_total|floatformat:2}}</small>
 
       </div>
@@ -97,5 +101,18 @@
   </div>
 
 </div>
+
+<script>
+
+  var form = document.getElementById('form')
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault()
+    console.log('Submited')
+    document.getElementById('form-btn').classList.add('hidden')
+    document.getElementById('card-info').classList.remove('hidden')
+  })
+
+</script>
 
 {% endblock content %}
