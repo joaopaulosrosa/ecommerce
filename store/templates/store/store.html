@@ -17,9 +17,9 @@
 
           <div class="card-body">
             <a class="text-reset" href="{% url 'product' product.id %}">
-              <p class="card-text" style="text-align:right">{{product.name}}</p>
+              <p class="card-text" style="text-align:center">{{product.name}}</p>
             </a>
-            <p class="card-text" style="text-align:right">R$ {{product.price|floatformat:2}}</p>
+            <p class="card-text" style="text-align:center">R$ {{product.price|floatformat:2}}</p>
 
           </div>
 

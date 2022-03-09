@@ -67,11 +67,12 @@
     }
   </style>
 
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light py-4" style="background-color: white;">
 
     <div class="container d-flex">
 
-      <a class="navbar-brand" href="{% url 'store' %}">Ecommerce</a>
+      <img loading="lazy" class="img-fluid" src="https://cdn.dooca.store/2132/files/c36e65945a0c7e3b92b2504eacc45028.jpg?v=1613401751"
+        alt="c36e65945a0c7e3b92b2504eacc45028" style="max-height: 25px">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -80,18 +81,16 @@
       <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{% url 'store' %}">Store</a>
           </li>
         </ul>
         <div class="form-inline my-2 my-lg-0">
 
-          <a class="btn btn-outline-dark me-2" href="">Login</a>
-
           <a href="{% url 'cart' %}">
             <img src="{% static 'images/cart_icon.png' %}" style="width: 30px">
+            <span class="badge rounded-pill bg-danger" style="position: relative; right: 15px; bottom: 10px;">{{cartItems}}</span>
           </a>
 
-          <span class="badge rounded-pill bg-danger">{{cartItems}}</span>
+          <a class="btn btn-sm btn-outline-dark ms-2" href="">Login</a>
 
         </div>
       </div>
