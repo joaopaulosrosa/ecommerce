@@ -34,11 +34,23 @@
 
       </div>
 
-      {% endif %}
+      <a href="{% url 'cart' %}">
 
-      <button class="update-cart mt-4 btn btn-dark  text-center" data-product="{{product.id}}" data-action="add" type="submit" name="buy">
-        <small>ADICIONAR AO CARRINHO</small>
-      </button>
+        <button class="mt-4 btn btn-dark text-center">
+
+          <small>IR PARA CARRINHO</small>
+
+        </button>
+
+      </a>
+
+      {% else %}
+
+        <button class="update-cart mt-4 btn btn-dark  text-center" data-product="{{product.id}}" data-action="add" type="submit" name="buy">
+          <small>ADICIONAR AO CARRINHO</small>
+        </button>
+
+      {% endif %}
 
     </div>
 
