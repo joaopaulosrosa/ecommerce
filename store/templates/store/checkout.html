@@ -31,14 +31,14 @@
           <div class="d-flex justify-content-between pb-4">
 
             <input type="text" placeholder="Endereço" name="address" class="form-control me-2">
-            <input type="email" placeholder="Cidade" name="city" class="form-control ms-2">
+            <input type="text" placeholder="Cidade" name="city" class="form-control ms-2">
 
           </div>
 
           <div class="d-flex justify-content-between pb-4">
 
             <input type="text" placeholder="Estado" name="state" class="form-control me-2">
-            <input type="email" placeholder="CEP" name="zipcode" class="form-control ms-2">
+            <input type="text" placeholder="CEP" name="zipcode" class="form-control ms-2">
 
           </div>
 
@@ -114,7 +114,7 @@
 
 <script>
 
-  var total = '{{order.get_cart_total|floatformat:2}}'
+  var total = '{{order.get_cart_total}}'
 
   if (user != 'AnonymousUser'){
     document.getElementById('user-info').classList.add('hidden')
@@ -152,6 +152,28 @@
       'state': null,
       'zipcode': null
     }
+
+    if(user == 'AnonymousUser'){
+      userFormData.name = form.name.value
+      userFormData.email = form.email.value
+    }
+
+    var url = '/process_order/'
+
+    fetch(url, {
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+      body: JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+      alert('Transaction completed')
+      window.location.href = "{% url 'store' %}"
+    })
   }
 
 </script>
