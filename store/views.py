@@ -114,7 +114,7 @@ def updateItem(request):
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
-
+    print(data)
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -125,6 +125,15 @@ def processOrder(request):
             order.complete = True
         order.save()
 
+        a = ShippingAddress.objects.create(
+            customer=customer,
+            order=order,
+            address=data['shipping']['address'],
+            city=data['shipping']['city'],
+            state=data['shipping']['state'],
+            zip_code=data['shipping']['zipcode'],
+        )
+        print(a)
     else:
         print('User not logged in')
 

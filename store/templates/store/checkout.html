@@ -38,7 +38,7 @@
           <div class="d-flex justify-content-between pb-4">
 
             <input type="text" placeholder="Estado" name="state" class="form-control me-2">
-            <input type="text" placeholder="CEP" name="zipcode" class="form-control ms-2">
+            <input type="number" placeholder="CEP" name="zipcode" class="form-control ms-2">
 
           </div>
 
@@ -147,10 +147,10 @@
     }
 
     var shippingInfo = {
-      'address': null,
-      'city':null,
-      'state': null,
-      'zipcode': null
+      'address': form.address.value,
+      'city': form.city.value,
+      'state': form.state.value,
+      'zipcode': form.zipcode.value,
     }
 
     if(user == 'AnonymousUser'){
