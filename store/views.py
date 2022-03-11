@@ -32,19 +32,26 @@ def product(request, pk):
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         item = OrderItem.objects.get_or_create(order=order, product=product)[0]
+        quantity = item.quantity
         cartItems = order.get_cart_items
     else:
-        item = []
         cookieData = cookieCart(request)
         cartItems = cookieData['cartItems']
         order = cookieData['order']
+        quantity = ''
 
+        try:
+            for i in cookieData['items']:
+                if i['product'] == product:
+                    quantity = i['quantity']
+        except:
+            pass
 
     context = {
         'product': product,
         'order': order,
-        'item': item,
-        'cartItems': cartItems
+        'cartItems': cartItems,
+        'quantity': quantity,
     }
     return render(request, 'store/product.html', context)
 

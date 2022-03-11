@@ -20,16 +20,16 @@
 
       <p class="mt-5" >{{product.description}}</p>
 
-      {% if item.quantity > 0 %}
+      {% if quantity > 0 %}
 
       <div class="d-flex">
 
-        <img data-product="{{item.product.id}}" data-action="add" style="height: 20px; cursor:pointer;"
+        <img data-product="{{product.id}}" data-action="add" style="height: 20px; cursor:pointer;"
           class="my-auto chg-quantity update-cart" src="{% static  'images/plus.png' %}">
 
-        <p class="pt-2 mx-2 fw-bold">{{item.quantity}}</p>
+        <p class="pt-2 mx-2 fw-bold">{{quantity}}</p>
 
-        <img data-product="{{item.product.id}}" data-action="remove" style="height: 20px; cursor:pointer;"
+        <img data-product="{{product.id}}" data-action="remove" style="height: 20px; cursor:pointer;"
           class="my-auto chg-quantity update-cart" src="{% static  'images/minus.png' %}">
 
       </div>
