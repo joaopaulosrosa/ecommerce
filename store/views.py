@@ -4,44 +4,36 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
-from .utils import cookieCart
+from .utils import cartData, cookieCart
 
 # Create your views here.
 
 def store(request):
+    data = cartData(request)
+
+    cartItems = data['cartItems']
     products = Product.objects.all()
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        cartItems = order.get_cart_items
-    else:
-        cookieData = cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order = cookieData['order']
 
     context = {
         'products': products,
-        'order': order,
         'cartItems': cartItems
     }
     return render(request, 'store/store.html', context)
 
 def product(request, pk):
+    data = cartData(request)
+
     product = Product.objects.get(id=pk)
+    cartItems = data['cartItems']
+    order = data['order']
+
     if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
         item = OrderItem.objects.get_or_create(order=order, product=product)[0]
         quantity = item.quantity
-        cartItems = order.get_cart_items
     else:
-        cookieData = cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order = cookieData['order']
         quantity = ''
-
         try:
-            for i in cookieData['items']:
+            for i in data['items']:
                 if i['product'] == product:
                     quantity = i['quantity']
         except:
@@ -56,19 +48,12 @@ def product(request, pk):
     return render(request, 'store/product.html', context)
 
 def cart(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-        print(items)
-    else:
-        cookieData = cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order = cookieData['order']
-        items = cookieData['items']
+    data = cartData(request)
 
-        print(items)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
     context = {
         'items': items,
         'order': order,
@@ -78,16 +63,11 @@ def cart(request):
 
 
 def checkout(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-        cookieData = cookieCart(request)
-        items = cookieData['items']
-        cartItems = cookieData['cartItems']
-        order = cookieData['order']
+    data = cartData(request)
+
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
 
     context = {
         'items': items,
