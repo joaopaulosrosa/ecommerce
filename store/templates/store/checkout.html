@@ -10,6 +10,7 @@
 
 
       <form class="w-100" id="form">
+        {% csrf_token %}
 
         <div id="user-info" class="justify-content-between border-bottom pb-4">
 
@@ -119,12 +120,10 @@
   if (user != 'AnonymousUser'){
     document.getElementById('user-info').classList.add('hidden')
   }
-  else{
-    document.getElementById('shipping-info').classList.add('hidden')
-  }
-
 
   var form = document.getElementById('form')
+
+  csrftoken = form.getElementsByTagName('input')[0].value
 
   form.addEventListener('submit', function(e){
     e.preventDefault()
@@ -172,6 +171,10 @@
     .then((data) => {
       console.log('Success:', data);
       alert('Transaction completed')
+
+      cart = {}
+      document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
       window.location.href = "{% url 'store' %}"
     })
   }
