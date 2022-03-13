@@ -4,7 +4,7 @@ from django.http import JsonResponse
 import json
 import datetime
 from .models import *
-from .utils import cartData, cookieCart
+from .utils import cartData, cookieCart, guestOrder
 
 # Create your views here.
 
@@ -110,26 +110,26 @@ def processOrder(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        total = float(data['form']['total'])
-        order.transaction_id = transaction_id
+        print(order)
 
-        if total == order.get_cart_total:
-            order.complete = True
-        order.save()
-
-        a = ShippingAddress.objects.create(
-            customer=customer,
-            order=order,
-            address=data['shipping']['address'],
-            city=data['shipping']['city'],
-            state=data['shipping']['state'],
-            zip_code=data['shipping']['zipcode'],
-        )
-        print(a)
     else:
-        print('User not logged in')
+        customer, order = guestOrder(request, data)
 
-    context = {
+    total = float(data['form']['total'])
+    order.transaction_id = transaction_id
 
-    }
+    if round(total, 2) == order.get_cart_total:
+        order.complete = True
+    order.save()
+
+    print(total, '======', order.get_cart_total)
+    ShippingAddress.objects.create(
+        customer=customer,
+        order=order,
+        address=data['shipping']['address'],
+        city=data['shipping']['city'],
+        state=data['shipping']['state'],
+        zip_code=data['shipping']['zipcode'],
+    )
+
     return JsonResponse('Payment complete!', safe=False)
