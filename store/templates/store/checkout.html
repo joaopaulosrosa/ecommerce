@@ -58,8 +58,8 @@
       <div id="card-info" class="hidden">
 
         <p class="fw-bold">PAYMENT INFO</p>
-        <input type="text" placeholder="Credit Card Number" name="state" class="form-control me-2">
-        <button class="mt-3 btn btn-dark" id="make-payment">Fazer Pagamento</button>
+        <div id="paypal-button-container"></div>
+        <!-- <button class="mt-3 btn btn-dark" id="make-payment">Fazer Pagamento</button> -->
 
       </div>
 
@@ -113,9 +113,37 @@
 
 </div>
 
+<script src="https://www.paypal.com/sdk/js?client-id=AXPd4fAz_6ndDhEU6pavUoWWxL3bLrkosOkY4nEXb5Li7qntgtT7DBbVU6Be2VFjhZozWiil7SVZoyUo&currency=BRL&disable-funding=credit"></script>
+
+<script>
+  var total = '{{order.get_cart_total}}'
+  // Render the PayPal button into #paypal-button-container
+  paypal.Buttons({
+
+    // Set up the transaction
+    createOrder: function (data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: parseFloat(total).toFixed(2)
+          }
+        }]
+      });
+    },
+
+    // Finalize the transaction
+    onApprove: function (data, actions) {
+      return actions.order.capture().then(function (orderData) {
+        submitFormData()
+      });
+    }
+
+
+  }).render('#paypal-button-container');
+</script>
+
 <script>
 
-  var total = '{{order.get_cart_total}}'
 
   if (user != 'AnonymousUser'){
     document.getElementById('user-info').classList.add('hidden')
@@ -132,9 +160,9 @@
     document.getElementById('card-info').classList.remove('hidden')
   })
 
-  document.getElementById('make-payment').addEventListener(('click'), function(e){
-    submitFormData()
-  })
+  // document.getElementById('make-payment').addEventListener(('click'), function(e){
+  //   submitFormData()
+  // })
 
   function submitFormData() {
     console.log('paymente btn clicked!')

@@ -110,7 +110,6 @@ def processOrder(request):
     if request.user.is_authenticated:
         customer = request.user.customer
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        print(order)
 
     else:
         customer, order = guestOrder(request, data)
@@ -118,11 +117,11 @@ def processOrder(request):
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
 
-    if round(total, 2) == order.get_cart_total:
+    if "%.2f" % round(total, 2) == "%.2f" % round(order.get_cart_total, 2):
         order.complete = True
     order.save()
 
-    print(total, '======', order.get_cart_total)
+    print("%.2f" % round(total, 2), '======', "%.2f" % round(order.get_cart_total, 2))
     ShippingAddress.objects.create(
         customer=customer,
         order=order,
