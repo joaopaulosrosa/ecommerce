@@ -11,14 +11,21 @@
       <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-4">
 
         <div class="card-product d-flex flex-column align-items-strech h-100 m-0 position-relative final" style="min-width: 18rem; max-width: 30rem">
+
           <a href="{% url 'product' product.id %}">
+
             <img class="card-img-top" src="{{ product.imageURL }}" alt="Card image cap" style="max-height: 706px;">
+
           </a>
 
           <div class="card-body">
+
             <a class="text-reset" href="{% url 'product' product.id %}">
+
               <p class="card-text" style="text-align:center">{{product.name}}</p>
+
             </a>
+
             <p class="card-text" style="text-align:center">R$ {{product.price|floatformat:2}}</p>
 
           </div>

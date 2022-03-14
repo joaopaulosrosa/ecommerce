@@ -1,10 +1,10 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, null=True)
+    user  = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    name  = models.CharField(max_length=200, null=True)
     email = models.EmailField(max_length=100)
 
     def __str__(self):
@@ -13,10 +13,10 @@ class Customer(models.Model):
 
 class Product(models.Model):
     product_code = models.CharField(max_length=5, unique=True)
-    name = models.CharField(max_length=30, null=False)
-    price = models.DecimalField(max_digits=7,decimal_places=2)
-    image = models.ImageField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True, max_length=200)
+    name         = models.CharField(max_length=30, null=False)
+    price        = models.DecimalField(max_digits=7,decimal_places=2)
+    image        = models.ImageField(null=True, blank=True)
+    description  = models.TextField(null=True, blank=True, max_length=200)
 
     def __str__(self):
         return self.name
@@ -31,9 +31,9 @@ class Product(models.Model):
 
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
-    created_at = models.DateField(auto_now_add=True)
-    complete = models.BooleanField(default=False)
+    customer       = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    created_at     = models.DateField(auto_now_add=True)
+    complete       = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=10, null=True)
 
     def __str__(self):
@@ -42,20 +42,20 @@ class Order(models.Model):
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
-        total = sum([item.get_total for item in orderitems])
+        total      = sum([item.get_total for item in orderitems])
         return total
 
     @property
     def get_cart_items(self):
         orderitems = self.orderitem_set.all()
-        total = sum([item.quantity for item in orderitems])
+        total      = sum([item.quantity for item in orderitems])
         return total
 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField(default=0, null=True, blank=True)
+    product    = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    order      = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    quantity   = models.IntegerField(default=0, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -68,12 +68,12 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    address = models.CharField(max_length=200, null=False)
-    city = models.CharField(max_length=200, null=False)
-    state = models.CharField(max_length=200, null=False)
-    zip_code = models.CharField(max_length=12, null=False)
+    customer   = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    order      = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    address    = models.CharField(max_length=200, null=False)
+    city       = models.CharField(max_length=200, null=False)
+    state      = models.CharField(max_length=200, null=False)
+    zip_code   = models.CharField(max_length=12, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
